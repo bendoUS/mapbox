@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    overflow: hidden !important;
+    margin: 0px;
+  }
+
+  .match-parent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .marker {
+    background-image: url('../src/assets/marker.png');
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+  } 
+  .mapboxgl-popup {
+    min-width: 200px;
+  }
+  .mapboxgl-popup-content {
+    position: relative;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    padding: 10px 10px 15px;
+    background: rgba(50,50,50,.4) !important;
+    color: #FFF;
+  }
+  
+  .mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+  .userClass{
+    text-decoration: none;outline: none;color: #FFF;
+  }
+  .userClass:hover{
+    color: rgb(124, 83, 83);
+  }
+  .mapboxgl-ctrl-attrib, .mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-top-right{
+    display: none !important;
+  }
+
+  .coordinates {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    padding: 5px 10px;
+    margin: 0;
+    font-size: 11px;
+    line-height: 18px;
+    border-radius: 3px;
+    display: none;
+    }
