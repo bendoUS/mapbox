@@ -1,6 +1,9 @@
 import { environment } from '../../environments/environment';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
+import * as $ from 'jquery'
 
 @Component({
   selector: 'app-map',
@@ -10,17 +13,20 @@ import * as mapboxgl from 'mapbox-gl';
 export class MapComponent implements OnInit {
 
   map: any = mapboxgl.Map;
+  mapPop: any = mapboxgl.Map;
   style = 'mapbox://styles/selom/clafq1x9q00ch15n7e0b0wq0z';
   lat = 35;
   lng = 0;
+  editPf: boolean = false
 
-  
+  latPop = 0
+  lngPop = 0
 
-  constructor() { }
+
+
+  constructor(public afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
-
-    const coordinates: any = document.getElementById('coordinates');
 
     this.map = new mapboxgl.Map({
       accessToken: environment.mapbox.accessToken,
@@ -32,20 +38,11 @@ export class MapComponent implements OnInit {
     });
     this.loadMap()
 
-    const marker = new mapboxgl.Marker({
-      draggable: true
-      })
-      .setLngLat([0, 0])
-      .addTo(this.map);
-       
-      function onDragEnd() {
-      const lngLat = marker.getLngLat();
-      coordinates.style.display = 'block';
-      coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-      }
-       
-      marker.on('dragend', onDragEnd);
+    this.getLocation()
+    
+
   }
+
 
 
   loadMap() {
@@ -119,15 +116,91 @@ export class MapComponent implements OnInit {
 
 
 
-    
+
 
 
   }
 
   getPosition() {
 
-    
+    this.editPf = true
+
+    let marker: any;
+    const coordinates: any = document.getElementById('coordinates');
+
+
+    if (this.editPf == true) {
+
+      this.mapPop = new mapboxgl.Map({
+        accessToken: environment.mapbox.accessToken,
+        container: 'mapPop',
+        style: this.style,
+        zoom: 2,
+        center: [this.latPop, this.lngPop],
+        projection: { name: 'mercator' }
+      });
+      
+
+      marker = new mapboxgl.Marker({
+        draggable: true
+      })
+        .setLngLat([this.latPop, this.lngPop])
+        .addTo(this.mapPop);
+
+      function onDragEnd() {
+        const lngLat = marker.getLngLat();
+        coordinates.style.display = 'block';
+        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+      }
+
+      marker.on('dragend', onDragEnd);
+    }
+    else {
+      coordinates.style.display = 'none';
+    }
 
   }
+
+  signIn() {
+    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+    this.afAuth.signInWithPopup(googleAuthProvider);
+  }
+
+  signOut() {
+    this.afAuth.signOut();
+  }
+
+  edit() {
+    if (!this.editPf) {
+      this.editPf = true
+      this.getPosition()
+      
+    }
+    else {
+      this.editPf = false
+      //this.getPosition()
+    }
+
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: any) => {
+        if (position) {
+          console.log("Latitude: " + position.coords.latitude +
+            "Longitude: " + position.coords.longitude);
+          this.latPop = position.coords.latitude;
+          this.lngPop = position.coords.longitude;
+          
+          console.log(this.lat);
+          console.log(this.lat);
+        }
+      },
+        (error: any) => console.log(error));
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
 
 }

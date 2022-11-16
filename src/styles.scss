@@ -3,6 +3,9 @@ body{
     overflow: hidden !important;
     margin: 0px;
   }
+*{
+  font-family: 'Poppins', sans-serif;
+}
 
   .match-parent {
     position: absolute;
@@ -10,7 +13,7 @@ body{
     height: 100%;
   }
   .marker {
-    background-image: url('../src/assets/marker.png');
+    background-image: url('../src/assets/placeholder.png');
     background-size: cover;
     width: 24px;
     height: 24px;
@@ -56,3 +59,5 @@ body{
     border-radius: 3px;
     display: none;
     }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

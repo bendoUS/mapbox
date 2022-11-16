@@ -1,0 +1,42 @@
+.logDivCover {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(20, 20, 20, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logDiv {
+    min-width: 20%;
+    min-height: 100px;
+    background-color: rgba(10, 10, 10, 0.5);
+    text-align: center;
+    color: #FFF;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.logBtn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    background-color: #FFF;
+    width: 60%;
+    margin-left: 20%;
+    color: black;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: white !important;
+  }

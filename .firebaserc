@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "test-d6ede": {
+      "hosting": {
+        "mapbox": [
+          "test-d6ede"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "test-d6ede"
+  }
+}
